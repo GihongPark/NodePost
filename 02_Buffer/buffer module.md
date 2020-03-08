@@ -1,5 +1,5 @@
 # Buffer
-앞서 본 [Global 모듈](../01. Global 모듈/global module.md)에 이어 Buffer에 대해 알아보겠습니다.
+앞서 본 [Global 모듈](https://github.com/GihongPark/NodePost/blob/master/01.%20Global%20%EB%AA%A8%EB%93%88/global%20module.md)에 이어 Buffer에 대해 알아보겠습니다.
 
 **Buffer**는 binary 데이터를 처리할때 사용되며, **alloc()**, **allocUnsafe()**, **from()** 함수를 통해 객체를 생성할 수 있습니다.
 **alloc()** 과 **allocUnsafe()** 의 차이는 **alloc()** 는 초기값을 0으로 초기화하며. **allocUnsafe()** 는 초기값을 초기화 하지않기때문에 데이터를 바로 넣을 시 객체 생성에 유리합니다.
