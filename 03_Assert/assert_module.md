@@ -1,6 +1,6 @@
 # Assert
 **Assert**는 테스트를 위해 데이터나 수식을 검사하는 모듈입니다.
-node.js에서 모듈로 제공해주므로 import하여 바로 사용할 수 있습니다.
+node.js에서 모듈로 제공해주므로 require하여 바로 사용할 수 있습니다.
 ```javascript
 const assert = require('assert');
 ```
