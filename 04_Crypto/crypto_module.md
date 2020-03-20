@@ -38,7 +38,6 @@ crypto.randomBytes(64, (err, buff) => {
     })
 });
 ```
-
 `randomBytes(size [, callback])` 메소드는 `size` 크기의 난수를 반환해 줍니다.  
 `pbkdf2(password, salt, iterations, keylen, digest, callback) 메서드는` 비밀번호, salt, 반복 횟수, 비밀번호 길이, 암호화 알고리즘, 콜백 함수를 인자 값으로 가집니다.  
 여기서 `buff`와 `key`값은 바이너리 값으로 반환되기 때문에 `toString('base64')`로 변경해줍니다.
@@ -54,5 +53,28 @@ crypto.randomBytes(64, (err, buff) => {
     })
 });
 ```
-
 `scrypt메서드는` 비밀번호, salt, 비밀번호 길이, 콜백 함수를 인자 값으로 가집니다.
+
+## 양방향 암호화
+양방향 암호화는 간단하게 알아보겠습니다. 
+양방향 암호화에서는 암호화와 복호화에 사용되는 키가 같은 **대칭형 암호화**와 서로 다른 키를 사용하는 **비대칭형 암호화**가 있는데, 저희는 대칭형 암호화만 간단하게 예제를 살펴보겠습니다.
+```javascript
+const key = 'key';
+const data = '암호화 할 데이터';
+
+// 암호화
+const cipher = crypto.createCipher('aes-256-cbc', key); // 암호화 객체 생성
+let result = cipher.update(data, 'utf8', 'base64');     // data 암호화 (utf8 -> base64)
+result += cipher.final('base64');
+console.log('암호화 : ', result);   // 암호화 :  6AanpOPTXbR10LKDlfCLI1nx+B/JSjzU+4dlIjQ/XGg=
+
+// 복호화
+const decipher = crypto.createDecipher("aes-256-cbc", key); // 복호화 객체 생성
+let result2 = decipher.update(result, 'base64', 'utf8');    // result 복호화 (base64 -> utf8)
+result2 += decipher.final('utf8');
+console.log('복호화 : ', result2);  // 복호화 :  암호화 할 데이터
+```
+먼저 암호화를 위해 `createCipher()` 메소드의 첫 인자값으로 암호화 알고리즘을 넣어주고 두번째 인자값으로 키값을 넣어줍니다.
+그리고 `update()`메소드를 통해 암호화 할 데이터를 암호화 해줍니다.
+반대로 복호화는 `decreateDecipher()` 메소도를 통해 합니다.
+이때 `update()` 메소드에서 암호화와 복호화에서 사용할 인코딩 방식에 주의해야 합니다.
